@@ -15,7 +15,9 @@ const routes = (
     <Router history={ hashHistory }>
       <Route path='/' component={ App }>
         <IndexRoute component={ Home } />
-        <Route path='products' component={ProductsPage} />
+        <Route path='products' component={ ProductsPage } />
+        <Route path='users' />
+
       </Route>
     </Router>
   </Provider>

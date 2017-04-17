@@ -14,28 +14,30 @@ const ProductListItem = ({ product, destroyProduct })=> (
   </li>
 );
 
+
 const ProductList = ({ products, destroyProduct})=> (
     <ul className='list-group'>
     {
       products.map( product => {
+
         return (
-          <ProductListItem  key={ product.id} product={ product } destroyProduct={()=> destroyProduct(product)} />
+          <ProductListItem  key={ product.id} product={ product } destroyProduct={ ()=> destroyProduct(product) } />
         );
       })
     }
     </ul>
 );
 
-const mapDispatchToProps = (dispatch)=> (
+const mapDispatchToProps = (dispatch) => (
   {
-    destroyProduct: (product)=> dispatch(destroyProduct(product))
+    destroyProduct: (product) => dispatch(destroyProduct(product))
   }
 );
 
-const mapStateToProps = (state)=> (
-  {
-    products: state.products
-  }
-);
+const mapStateToProps = (state) => {
+  console.log(state)
+ return { products: state.products }
+
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

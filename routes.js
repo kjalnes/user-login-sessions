@@ -15,3 +15,21 @@ app.delete('/products/:id', (req, res, next)=> {
     .then( () => res.sendStatus(204))
     .catch(next);
 });
+
+
+app.get('/users', (req, res, next)=> {
+  models.User.findAll({
+    order: 'name',
+    include: [
+        {
+            model: models.Product,
+            as: 'favoriteProduct'
+        },
+        {
+            model: models.Product,
+            as: 'worstProduct'
+        }]
+    })
+    .then( users => res.send( users ))
+    .catch(next);
+});

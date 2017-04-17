@@ -1,11 +1,10 @@
 import axios from 'axios';
-const LOAD_PRODUCTS_SUCCESS = 'LOAD_PRODUCTS_SUCCESS';
-const DESTROY_PRODUCT_SUCCESS = 'DESTROY_PRODUCT_SUCCESS';
+import {  LOAD_PRODUCTS_SUCCESS,
+          DESTROY_PRODUCT_SUCCESS,
+          LOAD_USERS_SUCCESS } from './constants';
 
-const loadProductsSuccess = (products)=> ({
-  type: LOAD_PRODUCTS_SUCCESS,
-  products: products
-});
+import { loadProductsSuccess, destroyProductSuccess, loadUsersSuccess } from './actions';
+
 
 const loadProducts = ()=> {
   return (dispatch)=> {
@@ -14,10 +13,6 @@ const loadProducts = ()=> {
   };
 };
 
-const destroyProductSuccess = (product)=> ({
-  type: DESTROY_PRODUCT_SUCCESS,
-  product: product
-});
 
 const destroyProduct = (product)=> {
   return (dispatch)=> {
@@ -28,10 +23,12 @@ const destroyProduct = (product)=> {
 
 
 
-export {
-  destroyProduct,
-  loadProducts
-};
+
+
+let initialState = {
+  products: [],
+  users: []
+}
 
 
 const productsReducer = (state=[], action)=> {
@@ -46,4 +43,30 @@ const productsReducer = (state=[], action)=> {
   return state;
 };
 
-export default productsReducer;
+
+const loadUsers = ()=> {
+  return (dispatch)=> {
+    return axios.get('/api/users')
+      .then(response => dispatch(loadUsersSuccess(response.data)));
+  };
+};
+
+
+
+const usersReducer = (state=[], action)=> {
+  switch(action.type){
+    case LOAD_USERS_SUCCESS:
+      state = action.users;
+      break;
+  }
+  return state;
+};
+
+
+export {
+  destroyProduct, // gets dispatched on delete click ProductList
+  loadProducts,  // gets dispatched in store
+  loadUsers,
+  productsReducer,
+  usersReducer
+};
