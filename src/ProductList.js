@@ -5,7 +5,11 @@ import { destroyProduct } from './productsReducer';
 const ProductListItem = ({ product, destroyProduct })=> (
   <li className='list-group-item'>
     { product.name }
+
     <button onClick={ destroyProduct } className='btn btn-danger pull-right'>x</button>
+    <button className="btn btn-default pull-right">Favorite</button>
+    <button className="btn btn-default pull-right">Worst</button>
+
     <br style={{ clear: 'both'}} />
   </li>
 );
@@ -15,7 +19,7 @@ const ProductList = ({ products, destroyProduct})=> (
     {
       products.map( product => {
         return (
-          <ProductListItem  key={ product.id} product={ product } destroyProduct={()=> destroyProduct(product)} /> 
+          <ProductListItem  key={ product.id} product={ product } destroyProduct={()=> destroyProduct(product)} />
         );
       })
     }
