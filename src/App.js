@@ -10,8 +10,9 @@ const App = ({ children, products })=> (
   </div>
 );
 
-const mapStateToProps = ({ products})=>(
-  { products }
+const mapStateToProps = ({ products })=>(
+  { products
+  }
 );
 
 export default connect(mapStateToProps)(App);

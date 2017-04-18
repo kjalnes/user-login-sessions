@@ -6,6 +6,8 @@ import ProductsPage from './ProductsPage';
 import { Provider } from 'react-redux';
 import store from './store';
 import Home from './Home';
+import LoginPage from './LoginPage';
+
 
 
 const root = document.getElementById('root');
@@ -16,7 +18,7 @@ const routes = (
       <Route path='/' component={ App }>
         <IndexRoute component={ Home } />
         <Route path='products' component={ ProductsPage } />
-        <Route path='users' />
+        <Route path='login' component={ LoginPage } />
 
       </Route>
     </Router>

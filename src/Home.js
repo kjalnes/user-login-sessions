@@ -2,25 +2,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
-const Home = ({ users, products })=> {
-    console.log('users', users)
+
+
+const UserItem = ({user, key}) => {
     return (
-        <ul className="list-group">
-            { users.map( user => {
-                return <li className="list-group-item" key={user.id}>
-                    <b>{user.name}</b> <br />
-                    Favorite product is {user.favoriteProduct.name }<br />
-                    Worst product is {user.worstProduct.name}
-                 </li>
-                })
-            }
-        </ul>
+            <li className="list-group-item" key={user.id}>
+                <b>{user.name}</b> <br />
+                Favorite product is :
+                { user.favoriteProduct !== null?  user.favoriteProduct.name : 'none' }  <br />
+
+                Worst product is :
+                { user.worstProduct !== null ?  user.worstProduct.name : 'none'}
+            </li>
+            )
+}
+
+
+const Home = ({ users })=> {
+
+    return (
+        <div className="well">
+            <ul className="list-group">
+                { users.map( user => <UserItem user={user} key={user.id} />)
+                }
+            </ul>
+        </div>
     )
 }
 
+
+
 const mapDispatchToProps = (state) => (
     {
-        products: state.products,
+        // products: state.products,
         users: state.users
     }
 )

@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
  return { products: state.products }
 
 };
