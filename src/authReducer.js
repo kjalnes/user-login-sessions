@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 // import {  LOAD_PRODUCTS_SUCCESS,
 //           DESTROY_PRODUCT_SUCCESS,
 //           LOAD_USERS_SUCCESS } from './constants';
@@ -20,13 +20,31 @@ const loadLoginSuccess = (user)=> ({
   user
 });
 
-const login = (credentials )=> {
+const login = (credentials ) => {
   return (dispatch)=> {
-    return axios.post('/api/session')
+    console.log('!!!', credentials)
+    return axios.post('/api/session', credentials)
+    // credentials is our req.body..
       .then(response => response.data)
-      .then( data => console.log(data));
+      .then( token => console.log('token is:', token));
   };
 };
+
+
+
+// const login = (credentials)=> {
+//   return (dispatch)=> {
+//     return axios.post('/api/session', credentials)
+//       .then(response => response.data)
+//       .then(data => {
+//         localStorage.setItem('token', data.token)
+//         return axios.get(`/api/session/${data.token}`)
+//       })
+//       .then(response => response.data)
+//       .then( user=> dispatch(loginSuccess(user)));
+//   };
+// };
+
 
 
 const authReducer = (state={ user: { name: 'moon' }}, action)=> {
@@ -39,4 +57,6 @@ const authReducer = (state={ user: { name: 'moon' }}, action)=> {
 };
 
 
+
+export { login };
 export default authReducer;

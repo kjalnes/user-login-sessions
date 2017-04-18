@@ -44,23 +44,23 @@ app.get('/users', (req, res, next)=> {
 // });
 
 
-app.post('/session', (req, res, next) => {
-    models.User.findOne({
-        where: {
-            name: req.body.name,
-            password: req.body.password
-        }
-    })
-    .then( user => {
-        console.log('user', user)
-        if(user) {
-            const token = jwt.encode({ id: user.id }, secret);
-            return res.send({ token })
-        }
-        return res.sendStatus(401)
-    })
-    .catch(next)
+app.post('/session', (req, res, next)=> {
+  models.User.findOne({
+    where: {
+      name: req.body.name,
+      password: req.body.password
+    }
+  })
+  .then( user => {
+    if(user){
+      const token = jwt.encode({id: user.id}, secret);
+      return res.send({ token });
+    }
+    return res.sendStatus(401);
+  })
+  .catch(next);
 });
+
 
 app.get('/session/:token', (req, res, next) => {
     try{

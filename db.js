@@ -26,7 +26,7 @@ const seed = ()=> {
   return sync()
     .then(()=> {
       const productPromises = products.map(name => Product.create({ name }));
-      const userPromises = users.map( name => User.create({ name }));
+      const userPromises =  users.map((name, index)=> User.create({ name, password: products[index]}));
 
       return Promise.all( [...productPromises, ...userPromises ])
         .then( results => [fish, lettuce, ketchup, nancy, leo, corny] = results )
