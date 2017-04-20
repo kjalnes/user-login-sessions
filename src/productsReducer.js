@@ -1,7 +1,8 @@
 // import axios from 'axios';
 import {  LOAD_PRODUCTS_SUCCESS,
           DESTROY_PRODUCT_SUCCESS,
-          LOAD_USERS_SUCCESS } from './constants';
+          LOAD_USERS_SUCCESS,
+          LOAD_UPDATE_SUCCESS } from './constants';
 
 
 // import actions and thunk actions
@@ -10,7 +11,8 @@ import {  loadProductsSuccess,
           loadUsersSuccess,
           loadProducts,
           destroyProduct,
-          loadUsers } from './actions';
+          loadUsers,
+          updateUser } from './actions';
 
 
 const productsReducer = (state=[], action)=> {
@@ -31,6 +33,16 @@ const usersReducer = (state=[], action)=> {
     case LOAD_USERS_SUCCESS:
       state = action.users;
       break;
+    // case LOAD_UPDATE_SUCCESS:
+    //   state = state.map( user => {
+    //       if( user.id === action.user.id) {
+    //         user = action.user
+    //       }
+    //       console.log('user', user)
+    //       return user;
+    //   })
+    //   console.log('state', state)
+    //   break;
   }
   return state;
 };

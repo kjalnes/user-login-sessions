@@ -6,6 +6,7 @@ import { productsReducer,
          loadUsers } from './productsReducer';
 import  authReducer from './authReducer';
 
+// this is were the global states for our reducers are defined
 const combined = combineReducers({
   products: productsReducer,
   users: usersReducer,

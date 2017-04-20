@@ -19,29 +19,50 @@ app.delete('/products/:id', (req, res, next)=> {
 });
 
 
-app.get('/users', (req, res, next)=> {
-  models.User.findAll({
-    order: 'name',
-    include: [
+app.put('/users/favorite/:id', (req, res, next) => {
+  models.User.update(
+    { favoriteProductId: req.body.id },
+    { where: { id: req.params.id }})
+  .then( () => {
+    return models.User.findOne({
+      where: { id: req.params.id},
+      include: [
         {
-            model: models.Product,
-            as: 'favoriteProduct'
+          model: models.Product,
+          as: 'favoriteProduct'
         },
         {
-            model: models.Product,
-            as: 'worstProduct'
-        }]
-    })
-    .then( users => res.send( users ))
-    .catch(next);
+          model: models.Product,
+          as: 'worstProduct'
+        }
+      ]})
+    .then( user => res.send( user))
+  })
+  .catch(next)
 });
 
-// app.get('/sessionCreate', (req, res, next) => {
-//     models.User.findById(1)
-//          .then( user => jwt.encode({ id: user.id }, secret ))
-//          .then( token => res.send({ token }))
-//          .catch(next)
-// });
+
+app.put('/users/worst/:id', (req, res, next) => {
+  models.User.update(
+    { worstProductId: req.body.id },
+    { where: { id: req.params.id }})
+  .then( () => {
+    return models.User.findOne({
+      where: { id: req.params.id},
+      include: [
+        {
+          model: models.Product,
+          as: 'favoriteProduct'
+        },
+        {
+          model: models.Product,
+          as: 'worstProduct'
+        }
+      ]})
+    .then( user => res.send( user))
+  })
+  .catch(next)
+});
 
 
 app.post('/session', (req, res, next)=> {
@@ -65,11 +86,23 @@ app.post('/session', (req, res, next)=> {
 app.get('/session/:token', (req, res, next) => {
     try{
         const token = jwt.decode(req.params.token, secret);
-        models.User.findById(token.id)
+        models.User.findOne({
+          where: { id: token.id },
+          include: [
+          {
+            model: models.Product,
+            as: 'favoriteProduct'
+          },
+          {
+            model: models.Product,
+            as: 'worstProduct'
+          }]
+        })
             .then( user => {
                 if(!user) {
                     return res.sendStatus(401)
                 }
+                console.log('user on login', user)
                 res.send(user)
             })
 
@@ -78,3 +111,22 @@ app.get('/session/:token', (req, res, next) => {
         res.sendStatus(500)
     }
 });
+
+
+app.get('/users', (req, res, next)=> {
+  models.User.findAll({
+    order: 'name',
+    include: [
+        {
+            model: models.Product,
+            as: 'favoriteProduct'
+        },
+        {
+            model: models.Product,
+            as: 'worstProduct'
+        }]
+    })
+    .then( users => res.send( users ))
+    .catch(next);
+});
+

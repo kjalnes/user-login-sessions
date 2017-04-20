@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   LOAD_PRODUCTS_SUCCESS,
   DESTROY_PRODUCT_SUCCESS,
-  UNSET_FAVORITE_PRODUCT,
   LOAD_USERS_SUCCESS } from './constants';
 
 const loadProductsSuccess = (products)=> ({
@@ -20,6 +19,8 @@ const loadUsersSuccess = (users) => ({
     type: LOAD_USERS_SUCCESS,
     users: users
 });
+
+
 
 // thunk actions
 const loadProducts = ()=> {
@@ -44,6 +45,7 @@ const loadUsers = ()=> {
       .then(response => dispatch(loadUsersSuccess(response.data)));
   };
 };
+
 
 
 

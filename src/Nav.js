@@ -2,7 +2,10 @@ import React  from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-const Nav = ({ products, user }) => {
+import { logout } from './authReducer';
+
+const Nav = ({ products, user}) => {
+
     return (
         <div>
             <h1>React Redux Login</h1>
@@ -18,12 +21,13 @@ const Nav = ({ products, user }) => {
             { ' | ' }
             <Link to='/products'>Products ({ products.length})</Link>
             { ' | ' }
-            <Link to='/login'>Login</Link>
-            { ' | ' }
-            { user ? ` Welcome ${user.name}` : null }
+
+            { user ? ` Welcome ${user.name} | ` : <Link to='/login'>Login</Link> }
+            { user ? <Link to='/login'>Log out</Link> : '' }
         </div>
     )
 }
+
 
 const mapStateToProps = ({ products, auth }) => (
     {

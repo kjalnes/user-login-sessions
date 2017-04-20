@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 
 
-const UserItem = ({user, key}) => {
+const UserItem = ({ user, key}) => {
     return (
             <li className="list-group-item" key={user.id}>
-                <b>{user.name}</b> <br />
+                <b>{ user.name}</b> <br />
                 Favorite product is :
                 { user.favoriteProduct !== null?  user.favoriteProduct.name : 'none' }  <br />
 
@@ -19,7 +19,6 @@ const UserItem = ({user, key}) => {
 
 
 const Home = ({ users })=> {
-
     return (
         <div className="well">
             <ul className="list-group">
@@ -32,11 +31,10 @@ const Home = ({ users })=> {
 
 
 
-const mapDispatchToProps = (state) => (
+const mapStateToProps = (state) => (
     {
-        // products: state.products,
         users: state.users
     }
 )
 
-export default connect(mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

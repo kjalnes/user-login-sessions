@@ -1,18 +1,32 @@
 import React from 'react';
 import ProductList from './ProductList';
+import { connect } from 'react-redux';
 
-const ProductsPage = ()=> (
-  <div className='well'>
-    <div>
-        <h3>User details </h3>
-        Name:<br/>
-        Favorite product:<br/>
-        Least favorite product:<br/>
+const ProductsPage = ({ user })=> {
+     return (
+      <div className='well'>
+        <div>
+            <h3>User details </h3>
+            <b>Name: </b>
+            { user ? user.name : 'none'}<br/>
+            <b>Favorite product: </b>
+            { user && user.favoriteProduct ? user.favoriteProduct.name : 'none'} <br/>
+            <b>Least favorite product: </b>
+            { user && user.worstProduct ? user.worstProduct.name : 'none' }
 
-    </div>
-    <hr />
-    <ProductList />
-  </div>
-);
+            <br/>
+        </div>
+        <hr />
+        <ProductList />
+      </div>
+    )
+};
 
-export default ProductsPage;
+const mapStateToProps = ({ user, auth }) => {
+    return {
+        user: auth.user
+    }
+}
+
+export default connect(mapStateToProps)(ProductsPage);
+
