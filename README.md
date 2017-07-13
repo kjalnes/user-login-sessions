@@ -1,3 +1,5 @@
+
 # npm install
-# create database from DATABASE_URL
-# npm run start:dev
+# create your database from DATABASE_URL in package.json
+# npm run start:dev to run app
+
